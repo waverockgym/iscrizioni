@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modulo Iscrizione Waverock Gym</title>
+  <title>Modulo Iscrizione</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -48,16 +48,17 @@
     input[type="text"],
     input[type="date"] {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       margin-bottom: 20px;
       border: 1px solid #ccc;
       border-radius: 8px;
+      font-size: 16px;
       transition: border-color 0.3s, box-shadow 0.3s;
     }
 
     input[type="text"]:focus,
     input[type="date"]:focus {
-      border-color: #00cf91; /* Colore primario brand */
+      border-color: #00cf91;
       box-shadow: 0 0 5px rgba(0, 207, 145, 0.5);
       outline: none;
     }
@@ -76,7 +77,7 @@
     }
 
     button:hover {
-      background-color: #006fcc; /* versione più scura per hover */
+      background-color: #006fcc;
       box-shadow: 0 4px 12px rgba(0, 136, 255, 0.4);
     }
 
@@ -103,20 +104,18 @@
 
   <div class="form-container">
     <h1>Modulo Iscrizione</h1>
+    <form id="registrationForm">
+      <label>Nome</label>
+      <input type="text" name="nome" placeholder="Mario" required>
 
-<form id="registrationForm">
-  <label>Nome</label>
-  <input type="text" name="nome" placeholder="Mario" required>
+      <label>Cognome</label>
+      <input type="text" name="cognome" placeholder="Rossi" required>
 
-  <label>Cognome</label>
-  <input type="text" name="cognome" placeholder="Rossi" required>
+      <label>Data di nascita</label>
+      <input type="date" name="dataNascita" required>
 
-  <label>Data di nascita</label>
-  <input type="date" name="dataNascita" required style="font-size:16px; padding:14px;">
-
-  <button type="submit">Invia</button>
-</form>
-
+      <button type="submit">Invia</button>
+    </form>
     <p id="message"></p>
   </div>
 
@@ -137,6 +136,7 @@
         });
 
         const result = await response.text();
+
         if (result === "Successo") {
           message.style.color = "green";
           message.textContent = "Iscrizione avvenuta con successo!";
@@ -154,5 +154,3 @@
 
 </body>
 </html>
-
-

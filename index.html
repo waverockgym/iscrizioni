@@ -24,7 +24,7 @@
     max-width:560px;
     background:#fff;
     border-radius:12px;
-    padding:28px;             /* padding uguale sx/dx */
+    padding:28px;
     box-shadow:0 8px 30px rgba(0,0,0,0.08);
   }
 
@@ -40,7 +40,7 @@
   .full{grid-column:1/-1}
 
   label{display:block;font-weight:500;margin-bottom:6px;color:#333;font-size:14px}
-  input[type="text"], input[type="tel"], input[type="date"]{
+  input[type="text"], input[type="tel"], input[type="email"], input[type="date"]{
     width:100%;
     padding:12px 14px;
     border-radius:8px;
@@ -93,11 +93,8 @@
 
           <div>
             <label for="codiceFiscale">Codice fiscale</label>
-            <input id="codiceFiscale" name="codiceFiscale" type="text"
-       placeholder="RSSMRA80A01H501U" required
-       style="text-transform: uppercase;"
-       oninput="this.value = this.value.toUpperCase();">
-
+            <input id="codiceFiscale" name="codiceFiscale" type="text" placeholder="RSSMRA80A01H501U" required
+                   style="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase();">
           </div>
 
           <div>
@@ -112,12 +109,12 @@
           </div>
 
           <div>
-            <label for="localita">Residente a</label>
+            <label for="localita">Località</label>
             <input id="localita" name="localita" type="text" placeholder="Rimini centro" required>
           </div>
 
           <div class="full">
-            <label for="via">in Via / Indirizzo</label>
+            <label for="via">Via / Indirizzo</label>
             <input id="via" name="via" type="text" placeholder="Via Roma 1" required>
           </div>
 
@@ -125,12 +122,11 @@
             <label for="cell">Cellulare</label>
             <input id="cell" name="cell" type="tel" placeholder="3331234567" required>
           </div>
-          
+
           <div>
             <label for="email">Email</label>
             <input id="email" name="email" type="email" placeholder="esempio@dominio.com" required>
           </div>
-
 
         </div>
 
@@ -144,13 +140,9 @@
   </div>
 
 <script>
-/*
-  scriptUrl: assicurati sia quello del tuo deployment /exec
-  Sostituisci se diverso.
-*/
 const scriptUrl = "https://script.google.com/macros/s/AKfycbyb-yE6IZA3nE1TGiKjiyHm26KOYF1f5074kMTe1w8iAQOjWj6kw-ee_y2FDYHH3lzaQA/exec";
 
-function toDDMMYYYYFromInput(isoDate){ // isoDate = "yyyy-mm-dd"
+function toDDMMYYYYFromInput(isoDate){
   if(!isoDate) return "";
   const p = isoDate.split("-");
   if(p.length!==3) return "";
@@ -163,28 +155,27 @@ form.addEventListener("submit", async (ev) => {
   ev.preventDefault();
   message.textContent = ""; message.style.color = "";
 
-  // read fields
   const nome = document.getElementById("nome").value.trim();
   const cognome = document.getElementById("cognome").value.trim();
   const codiceFiscale = document.getElementById("codiceFiscale").value.trim();
-  const dataNascitaRaw = document.getElementById("dataNascita").value; // yyyy-mm-dd
+  const dataNascitaRaw = document.getElementById("dataNascita").value;
   const luogoNascita = document.getElementById("luogoNascita").value.trim();
   const localita = document.getElementById("localita").value.trim();
   const via = document.getElementById("via").value.trim();
   const cell = document.getElementById("cell").value.trim();
+  const email = document.getElementById("email").value.trim();
 
-  if(!cognome||!nome||!codiceFiscale||!dataNascitaRaw||!luogoNascita||!localita||!via||!cell){
+  if(!cognome||!nome||!codiceFiscale||!dataNascitaRaw||!luogoNascita||!localita||!via||!cell||!email){
     message.style.color = "red"; message.textContent = "Compila tutti i campi richiesti";
     return;
   }
 
-  const dataNascita = toDDMMYYYYFromInput(dataNascitaRaw); // dd/mm/yyyy
+  const dataNascita = toDDMMYYYYFromInput(dataNascitaRaw);
   if(!dataNascita){
     message.style.color = "red"; message.textContent = "Data di nascita non valida";
     return;
   }
 
-  // prepare payload as URLSearchParams (form-encoded)
   const payload = new URLSearchParams();
   payload.append("cognome", cognome);
   payload.append("nome", nome);
@@ -194,6 +185,7 @@ form.addEventListener("submit", async (ev) => {
   payload.append("localita", localita);
   payload.append("via", via);
   payload.append("cell", cell);
+  payload.append("email", email);
 
   try{
     const res = await fetch(scriptUrl, { method: "POST", body: payload });
@@ -211,6 +203,3 @@ form.addEventListener("submit", async (ev) => {
 </script>
 </body>
 </html>
-
-
-

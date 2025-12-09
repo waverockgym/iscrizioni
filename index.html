@@ -93,7 +93,11 @@
 
           <div>
             <label for="codiceFiscale">Codice fiscale</label>
-            <input id="codiceFiscale" name="codiceFiscale" type="text" placeholder="RSSMRA80A01H501U" required>
+            <input id="codiceFiscale" name="codiceFiscale" type="text"
+       placeholder="RSSMRA80A01H501U" required
+       style="text-transform: uppercase;"
+       oninput="this.value = this.value.toUpperCase();">
+
           </div>
 
           <div>
@@ -201,3 +205,4 @@ form.addEventListener("submit", async (ev) => {
 </script>
 </body>
 </html>
+

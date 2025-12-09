@@ -125,6 +125,12 @@
             <label for="cell">Cellulare</label>
             <input id="cell" name="cell" type="tel" placeholder="3331234567" required>
           </div>
+          
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="esempio@dominio.com" required>
+          </div>
+
 
         </div>
 
@@ -142,7 +148,7 @@
   scriptUrl: assicurati sia quello del tuo deployment /exec
   Sostituisci se diverso.
 */
-const scriptUrl = "https://script.google.com/macros/s/AKfycby-Eel_vsN-NOkza46KOKTp3PFiungk-UU-pIAAS9CJZwHJB77nfCFYWabybKOB2SUvIA/exec";
+const scriptUrl = "https://script.google.com/macros/s/AKfycbyb-yE6IZA3nE1TGiKjiyHm26KOYF1f5074kMTe1w8iAQOjWj6kw-ee_y2FDYHH3lzaQA/exec";
 
 function toDDMMYYYYFromInput(isoDate){ // isoDate = "yyyy-mm-dd"
   if(!isoDate) return "";
@@ -205,5 +211,6 @@ form.addEventListener("submit", async (ev) => {
 </script>
 </body>
 </html>
+
 
 

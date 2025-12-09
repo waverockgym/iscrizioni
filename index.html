@@ -1,121 +1,126 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modulo Iscrizione</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Iscrizione Arrampicata</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
-  <style>
+<style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      padding: 20px;
+        background: #f5f5f5;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
     }
 
-    h1 {
-      text-align: center;
-      font-family: 'Permanent Marker', cursive;
-      color: #00cf91;
-      margin-bottom: 20px;
+    .container {
+        background: white;
+        width: 90%;
+        max-width: 550px;
+        margin-top: 30px;
+        padding: 25px 30px; /* padding sinistro e destro aumentati */
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    form {
-      max-width: 500px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    h2 {
+        font-family: "Permanent Marker", cursive;
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 25px;
     }
 
     label {
-      font-weight: bold;
-      margin-top: 15px;
-      display: block;
-      color: #0088ff;
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
     }
 
     input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
     }
 
     button {
-      width: 100%;
-      padding: 12px;
-      background-color: #00cf91;
-      border: none;
-      border-radius: 6px;
-      font-size: 18px;
-      color: white;
-      margin-top: 20px;
-      cursor: pointer;
+        margin-top: 25px;
+        width: 100%;
+        padding: 12px;
+        background: #333;
+        color: white;
+        border: none;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
     }
 
     button:hover {
-      background-color: #00b67f;
+        background: #000;
     }
-  </style>
+</style>
 </head>
 
 <body>
+<div class="container">
 
-<h1>Modulo Iscrizione</h1>
+    <h2>Iscrizione</h2>
 
-<form id="iscrizioneForm">
-  <label>Cognome</label>
-  <input type="text" name="cognome" required>
+    <form id="form">
 
-  <label>Nome</label>
-  <input type="text" name="nome" required>
+        <label>N° Tessera</label>
+        <input type="text" name="tessera" required>
 
-  <label>Codice Fiscale</label>
-  <input type="text" name="codice_fiscale" required>
+        <label>Cognome</label>
+        <input type="text" name="cognome" required>
 
-  <label>Data di nascita</label>
-  <input type="date" name="data_nascita" required>
+        <label>Nome</label>
+        <input type="text" name="nome" required>
 
-  <label>Luogo di nascita</label>
-  <input type="text" name="luogo_nascita" required>
+        <label>Codice Fiscale</label>
+        <input type="text" name="codiceFiscale" required>
 
-  <label>Località</label>
-  <input type="text" name="localita" required>
+        <label>Data di Nascita</label>
+        <input type="date" name="dataNascita" required>
 
-  <label>Via</label>
-  <input type="text" name="via" required>
+        <label>Luogo di Nascita</label>
+        <input type="text" name="luogoNascita">
 
-  <label>Cellulare</label>
-  <input type="text" name="cell" required>
+        <label>Località</label>
+        <input type="text" name="localita">
 
-  <button type="submit">Invia Iscrizione</button>
-</form>
+        <label>Via</label>
+        <input type="text" name="via">
+
+        <label>Cellulare</label>
+        <input type="text" name="cell">
+
+        <button type="submit">Invia</button>
+    </form>
+
+    <p id="msg" style="margin-top:20px; font-weight:bold;"></p>
+
+</div>
 
 <script>
-document.getElementById("iscrizioneForm").addEventListener("submit", function(e){
+document.getElementById("form").addEventListener("submit", function(e){
     e.preventDefault();
+    const data = new FormData(this);
 
-    const formData = new FormData(e.target);
-
-    fetch("https://script.google.com/macros/s/AKfycbwXz2YSdawVm0j3sTFK9kkg50BI0eRaS6SpLmf_f_5Q4Akg2QrNnHvycAl_-u66CUU-sg/exec", {
+    fetch("", {  // <-- lascia vuoto, Apps Script inserisce l’URL automaticamente
         method: "POST",
-        body: formData
+        body: data
     })
     .then(res => res.text())
-    .then(txt => {
-        alert("Iscrizione inviata correttamente!");
-        e.target.reset();
-    })
-    .catch(err => alert("Errore nell'invio: " + err));
+    .then(msg => { document.getElementById("msg").innerText = msg; });
 });
 </script>
 
 </body>
 </html>
-
